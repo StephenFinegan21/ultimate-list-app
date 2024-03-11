@@ -1,48 +1,36 @@
-"use client";
+// ListForm.tsx
+'use client'
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { useForm } from "react-hook-form";
+import { addItem } from "@/app/actions/addItem"
 
 export default function ListForm() {
-  const form = useForm({
-    defaultValues: {
-      item: "",
-    },
-  });
+  const [item, setItem] = useState("");
 
-  const handleAddItem = (data: { item: string }) => {
-    form.reset();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await addItem(item); // Invoking addItem function with the item value
+    setItem(""); // Clear the input field after adding item
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setItem(event.target.value);
+  };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleAddItem)} >
-        <FormField
-          control={form.control}
-          name="item"
-          render={({ field }) => (
-            <div className="flex gap-8 items-center justify-center" >
-              <FormItem >
-                <FormControl>
-                  <Input type="text" placeholder="Add an Item" {...field} />
-                </FormControl>
-              </FormItem>
-              <Button type="submit" variant={"destructive"}>
-                Add
-              </Button>
-            </div>
-          )}
+    <form onSubmit={handleSubmit}>
+      <div className="flex gap-8 items-center justify-center">
+        <Input
+          type="text"
+          placeholder="Add an Item"
+          value={item}
+          onChange={handleChange}
         />
-      </form>
-    </Form>
+        <Button type="submit" variant={"destructive"}>
+          Add
+        </Button>
+      </div>
+    </form>
   );
 }
