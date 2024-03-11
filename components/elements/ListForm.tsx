@@ -22,6 +22,7 @@ export default function ListForm() {
     form.reset();
   };
 
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleAddItem)} >
@@ -38,9 +39,6 @@ export default function ListForm() {
               <Button type="submit" variant={"destructive"}>
                 Add
               </Button>
-              <button type="button" onClick={form.reset}>
-                Reset
-              </button>
             </div>
           )}
         />
