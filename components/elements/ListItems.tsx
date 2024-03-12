@@ -1,9 +1,7 @@
 "use client";
-
-import { set } from "react-hook-form";
 import ListForm from "./ListForm";
 import { useState } from "react";
-import { fetchItems } from "@/app/actions/fetchItems";
+import ListItem from "./ListItem";
 
 type ListItemProps = {
   id: number;
@@ -22,12 +20,13 @@ export default function ListItems({ items }: { items: ListItemProps[] }) {
 
   return (
     <>
-      <ListForm refresh={refreshData} />
-      <ul>
+      
+      <ul className="w-full text-left py-4 flex flex-col gap-2">
         {listItems.map((item, index) => (
-          <li key={index}>{item.item}</li>
+          <ListItem key={index} text={item.item} />
         ))}
       </ul>
+      <ListForm refresh={refreshData} />
     </>
   );
 }
