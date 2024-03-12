@@ -1,12 +1,11 @@
-"use server"
 import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 
-export async function fetchItems() {
+export async function GET() {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
 
   const { data: list } = await supabase.from('list').select()
-  return list
+  return Response.json(list)
+
   }
-  

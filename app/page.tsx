@@ -1,6 +1,7 @@
 import ListItems from "@/components/elements/ListItems";
 import { fetchItems } from "@/app/actions/fetchItems";
 
+
 export default async function Home() {
   const list = await fetchItems();
 
